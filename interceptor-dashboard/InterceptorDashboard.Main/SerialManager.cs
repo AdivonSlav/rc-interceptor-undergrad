@@ -69,10 +69,10 @@ public class SerialManager
     public static FlightData ParseToFlightData(string data)
     {
         var parts = data.Split(",");
-        var throttle = float.Parse(parts[0]);
-        var yaw = float.Parse(parts[1]);
-        var pitch = float.Parse(parts[2]);
-        var roll = float.Parse(parts[3]);
+        var pitch = float.Parse(parts[0]);
+        var roll = float.Parse(parts[1]);
+        var yaw = float.Parse(parts[2]);
+        var throttle = float.Parse(parts[3]);
 
         return new FlightData()
         {

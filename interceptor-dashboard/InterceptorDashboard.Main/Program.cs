@@ -24,6 +24,7 @@ var predictor = new Predictor();
 
 // Load model for predictions
 predictor.LoadModel(modelPath);
+Console.WriteLine($"Loaded model from {modelPath}");
 
 SerialManagerDataReceived handler = data =>
 {
@@ -33,7 +34,8 @@ SerialManagerDataReceived handler = data =>
     asFlightData.Legitimate = prediction.LegitimatePrediction;
     dataWriter.EnqueueData(asFlightData);
     
-    Console.WriteLine($"Received: {data}  ->  Usage was {prediction.LegitimatePrediction}");
+    Console.Write("\r" + new string(' ', Console.BufferWidth) + "\r");
+    Console.Write($"Received: {data} -> Usage was {asFlightData.Legitimate}");
 };
 
 // Read and write phase
@@ -41,7 +43,7 @@ Console.WriteLine("Starting worker to start reading from COM port...");
 serialManager.OpenConnection();
 _ = serialManager.StartRead(handler);
 
-Console.WriteLine("Starting worker to begin writes...");
+Console.WriteLine("Starting worker to begin writes...\n");
 dataWriter.StartWriting();
 
 // Termination phase
