@@ -24,7 +24,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
         uint32_t ch2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
         float dutyCycle = Core::CalculatePWMDutyCycle(ch1, ch2);
-        Core::FlightData::s_Pitch = dutyCycle;
+
+        Core::FlightData::s_Roll = Core::Map(dutyCycle, 787, 1033, 1000, 2000);
       }
     }
   }
@@ -39,7 +40,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
         uint32_t ch2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
         float dutyCycle = Core::CalculatePWMDutyCycle(ch1, ch2);
-        Core::FlightData::s_Roll = dutyCycle;
+
+        Core::FlightData::s_Pitch = Core::Map(dutyCycle, 800, 1017, 1000, 2000);
       }
     }
   }
@@ -54,7 +56,9 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
         uint32_t ch2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
         float dutyCycle = Core::CalculatePWMDutyCycle(ch1, ch2);
-        Core::FlightData::s_Yaw = dutyCycle;
+
+        Core::FlightData::s_Throttle =
+            Core::Map(dutyCycle, 712, 1160, 1000, 2000);
       }
     }
   }
@@ -69,7 +73,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
         uint32_t ch2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
         float dutyCycle = Core::CalculatePWMDutyCycle(ch1, ch2);
-        Core::FlightData::s_Throttle = dutyCycle;
+
+        Core::FlightData::s_Yaw = Core::Map(dutyCycle, 689, 1146, 1000, 2000);
       }
     }
   }
