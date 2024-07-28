@@ -4,13 +4,34 @@
 #include <string>
 
 namespace Core {
+
+float CalculatePWMFrequency(uint32_t ch1);
+
+float CalculatePWMDutyCycle(uint32_t ch1, uint32_t ch2);
+
+int32_t Map(int32_t input, int32_t fromMin, int32_t fromMax, int32_t toMin,
+            int32_t toMax);
+
+class Timers {
+private:
+public:
+  static TIM_HandleTypeDef *s_HardwareTimer1;
+  static TIM_HandleTypeDef *s_HardwareTimer2;
+  static TIM_HandleTypeDef *s_HardwareTimer3;
+  static TIM_HandleTypeDef *s_HardwareTimer4;
+
+  static void SetTimers(TIM_HandleTypeDef *htim1, TIM_HandleTypeDef *htim2,
+                        TIM_HandleTypeDef *htim3, TIM_HandleTypeDef *htim4);
+};
+
 class FlightData {
 private:
 public:
-  static uint32_t m_Throttle;
-  static uint32_t m_Yaw;
-  static uint32_t m_Pitch;
-  static uint32_t m_Roll;
+  static uint32_t s_Throttle;
+  static uint32_t s_Yaw;
+  static uint32_t s_Pitch;
+  static uint32_t s_Roll;
+  static uint32_t s_Frequency;
 
   FlightData();
   FlightData(const FlightData &obj) = delete;
